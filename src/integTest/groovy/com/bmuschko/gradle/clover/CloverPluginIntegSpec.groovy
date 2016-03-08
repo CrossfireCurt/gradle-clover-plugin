@@ -59,6 +59,20 @@ class CloverPluginIntegSpec extends Specification {
         cloverSnapshot.exists() == false
     }
 
+    def "Build a Java project with lambdas"() {
+        given: "a Java project"
+        projectName = 'java-project-lambdas'
+
+        when: "the Clover report generation task is run"
+        runTasks('clean', 'cloverGenerateReport')
+
+        then: "the Clover coverage database is generated"
+        cloverDb.exists()
+
+        and: "the Clover report is generated and is correct"
+        cloverXmlReport.exists()
+    }
+
     def "Build a Java project with disabled instrumentation"() {
         given: "a Java project"
         projectName = 'java-project-disabled-instrumentation'
